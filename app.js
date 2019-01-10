@@ -1,4 +1,4 @@
-var createError = require('http-errors');
+/*var createError = require('http-errors');
 var express = require('express');
 var path = require('path');
 var cookieParser = require('cookie-parser');
@@ -38,4 +38,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-module.exports = app;
+module.exports = app;*/
+var Server = require('./init/server');
+let server = new Server();
