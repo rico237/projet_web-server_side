@@ -39,5 +39,4 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;*/
-var Server = require('./init/server');
-let server = new Server();
+var app = require('./init/server');
