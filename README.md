@@ -5,5 +5,5 @@
 
 Preview de l'url de test :     
 
-![Image de l'endpoint de test](https://octodex.github.com/images/yaktocat.png)
+![Image de l'endpoint de test](https://github.com/rico237/projet_web-server_side/blob/master/ressources/IHM_server_side_project_cover_image.jpg?raw=true)
 ---
