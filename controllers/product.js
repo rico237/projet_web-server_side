@@ -1,22 +1,6 @@
 var Product = require('../models/product');
 
-tab = [
-    "Raclette",
-    "Poulet au curry",
-    "Boeuf bourguignon",
-    "Daube",
-    "Quenelles",
-    "Cake au jambon",
-    "Petits fours au fromage",
-    "Magret de canard",
-    "Saumon à la crème",
-    "Melon nature",
-    "Moules au vin blanc",
-    "Gratin de pommes de terre",
-    "Tarte au citron",
-    "Tarte au citron meringué",
-    "Tartiflette",
-];
+tab = ["Raclette","Poulet au curry","Boeuf bourguignon","Daube","Quenelles","Cake au jambon","Petits fours au fromage","Magret de canard","Saumon à la crème","Melon nature","Moules au vin blanc","Gratin de pommes de terre","Tarte au citron","Tarte au citron meringué","Tartiflette"];
 
 //Simple version, without validation or sanitation
 exports.test = function (req, res) {
