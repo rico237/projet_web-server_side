@@ -42,10 +42,8 @@ db.once('open', () => {
 });
 
 // Routes
-let product = require('./routes/product'); // Imports routes for the products
-
-// Endpoints
-app.use("/products", product);
+let product = require('./routes/product'); 	// products
+app.use("/products", product);				// products
 
 app.listen(port, () => {
 	console.log("Listening on port " + port);
