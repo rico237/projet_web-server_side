@@ -3,8 +3,8 @@ var Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
-    countries: {type: String},
-    manufacturing_places: {type: String}
+    countries: String,
+    manufacturing_places:  String
 });
 
 // Export the model
