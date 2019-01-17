@@ -8,7 +8,9 @@ router.get('/test', product_controller.test);
 
 router.post('/create', product_controller.product_create);
 
-router.post('/findAll', product_controller.product_find_all);
+router.get('/findAll', product_controller.product_find_all);
+
+router.get('/users', product_controller.getUsers);
 
 router.get('/:id', product_controller.product_details);
 

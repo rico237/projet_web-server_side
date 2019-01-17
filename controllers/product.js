@@ -7,6 +7,16 @@ exports.test = function (req, res) {
     res.json({ message: tab })
 };
 
+exports.getUsers = function() {
+  Product.getUsers()
+  .then(docs => {
+    console.log(docs)
+  })
+  .catch(err => {
+    console.error(err)
+  })
+}
+
 exports.product_create = function (req, res) {
     var product = new Product(
         {
