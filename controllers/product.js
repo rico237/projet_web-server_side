@@ -10,8 +10,7 @@ exports.test = function (req, res) {
 exports.product_create = function (req, res) {
     var product = new Product(
         {
-            name: req.body.name,
-            price: req.body.price
+            name: req.body.countries
         }
     );
 
@@ -20,6 +19,16 @@ exports.product_create = function (req, res) {
             return next(err);
         }
         res.send('Product Created successfully')
+    })
+};
+
+exports.product_find_all = function () {
+    Product.find({}, function(err, docs){
+        if (!err){ 
+            console.log(docs);
+            res.json({message: docs});
+            process.exit();
+        } else {throw err;}
     })
 };
 
