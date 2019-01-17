@@ -26,7 +26,7 @@ exports.product_find_all = function () {
     Product.find({}, function(err, docs){
         if (!err){ 
             console.log(docs);
-            res.json({message: docs});
+            // res.json({message: docs});
             process.exit();
         } else {throw err;}
     })
