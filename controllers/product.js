@@ -35,6 +35,13 @@ exports.product_create = function (req, res) {
 
 exports.product_allergens_all = function(req, res, next) {
     res.status(200).json({allergens});
+    /*Product.find({}, {'allergens_from_ingredients': 1})
+        .exec()
+        .then(docs => {
+            res.status(200).json({docs})
+        }).catch(err=>{
+            next(err)
+        })*/
     /*Product.find()
             .distinct('allergens_from_ingredients')
             .then(allergens => {
