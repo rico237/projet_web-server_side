@@ -35,19 +35,14 @@ exports.product_create = function (req, res) {
 exports.product_find_all = function (req, res, next) {
 
     Product.find({})
-            .limit(20)
-            .sort({'last_modified_by': -1})
+            .limit(10)
             .exec()
             .then(docs => {
-                res.status(200).json({
-                    docs
-                })
+                res.status(200).json({docs})
             })
             .catch(err => {
                 next(err)
-            })
-
-    
+            });
 };
 
 exports.product_details = function (req, res, next) {
