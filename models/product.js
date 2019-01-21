@@ -48,7 +48,7 @@ var ProductSchema = new Schema({
 			"required": false
 		},
 		"last_modified_by": {
-			"type": "undefined",
+			"type": Date,
 			"required": false
 		},
 		"_keywords": {
@@ -528,11 +528,11 @@ var ProductSchema = new Schema({
 					"type": "Object",
 					"structure": {
 						"x1": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"y1": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"rev": {
@@ -544,11 +544,11 @@ var ProductSchema = new Schema({
 							"required": false
 						},
 						"x2": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"angle": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"white_magic": {
@@ -626,7 +626,7 @@ var ProductSchema = new Schema({
 							"required": false
 						},
 						"y2": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						}
 					},
@@ -636,11 +636,11 @@ var ProductSchema = new Schema({
 					"type": "Object",
 					"structure": {
 						"x1": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"y1": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"rev": {
@@ -652,11 +652,11 @@ var ProductSchema = new Schema({
 							"required": false
 						},
 						"x2": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"angle": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						},
 						"white_magic": {
@@ -734,7 +734,7 @@ var ProductSchema = new Schema({
 							"required": false
 						},
 						"y2": {
-							"type": "undefined",
+							"type": "string",
 							"required": false
 						}
 					},
@@ -1383,7 +1383,7 @@ var ProductSchema = new Schema({
 			"required": false
 		},
 		"ingredients_text_with_allergens_en": {
-			"type": "undefined",
+			"type": "string",
 			"required": false
 		},
 		"labels_prev_tags": {
@@ -1427,7 +1427,7 @@ var ProductSchema = new Schema({
 			"required": false
 		},
 		"ingredients_text_with_allergens_gu": {
-			"type": "undefined",
+			"type": "string",
 			"required": false
 		},
 		"product_name_gu": {
@@ -1467,7 +1467,7 @@ var ProductSchema = new Schema({
 			"required": false
 		},
 		"ingredients_text_with_allergens_de": {
-			"type": "undefined",
+			"type": "string",
 			"required": false
 		},
 		"origins_debug_tags": {
