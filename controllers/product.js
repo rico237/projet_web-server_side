@@ -42,7 +42,7 @@ exports.product_find_all = function () {
     })
 };
 
-exports.product_details = function (req, res) {
+exports.product_details = function (req, res, next) {
     Product.findById(req.params.id, function (err, product) {
         if (err) return next(err);
         res.send(product);
