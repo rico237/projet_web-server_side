@@ -84,4 +84,5 @@ node_modules
 build
 npm-debug.log
 .env
-.DS_Store
+.DS_Storenpm-debug.log
+node_modules
