@@ -32,6 +32,17 @@ exports.product_create = function (req, res) {
     })
 };
 
+exports.product_allergens_all = function(req, res, next) {
+    Product.find()
+            .distinct('allergens_from_ingredients')
+            .then(docs => {
+                res.status(200).json({docs})
+            })
+            .catch(err => {
+                next(err)
+            })
+};
+
 exports.product_find_all = function (req, res, next) {
 
     Product.find({})
