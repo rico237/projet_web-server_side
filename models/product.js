@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
+var dbCollection = process.env.MONGODB_COLLECTION || 'Products';
 
 var ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
