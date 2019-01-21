@@ -1,6 +1,7 @@
 var Product = require('../models/product');
 
 tab = ["Raclette","Poulet au curry","Boeuf bourguignon","Daube","Quenelles","Cake au jambon","Petits fours au fromage","Magret de canard","Saumon à la crème","Melon nature","Moules au vin blanc","Gratin de pommes de terre","Tarte au citron","Tarte au citron meringué","Tartiflette"];
+var allergens = require('../json/allergens.json');
 
 //Simple version, without validation or sanitation
 exports.test = function (req, res) {
@@ -33,14 +34,15 @@ exports.product_create = function (req, res) {
 };
 
 exports.product_allergens_all = function(req, res, next) {
-    Product.find()
+    res.status(200).json({allergens});
+    /*Product.find()
             .distinct('allergens_from_ingredients')
-            .then(docs => {
-                res.status(200).json({docs})
+            .then(allergens => {
+                res.status(200).json({allergens})
             })
             .catch(err => {
                 next(err)
-            })
+            })*/
 };
 
 exports.product_find_all = function (req, res, next) {
@@ -48,8 +50,8 @@ exports.product_find_all = function (req, res, next) {
     Product.find({})
             .limit(10)
             .exec()
-            .then(docs => {
-                res.status(200).json({docs})
+            .then(products => {
+                res.status(200).json({products})
             })
             .catch(err => {
                 next(err)
