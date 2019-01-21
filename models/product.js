@@ -3,10 +3,7 @@ var Schema = mongoose.Schema;
 
 var ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
-		"_id": {
-			"type": "string",
-			"required": false
-		},
+		"_id": "string",
 		"rev": {
 			"type": "number",
 			"required": false
@@ -1526,7 +1523,7 @@ var ProductSchema = new Schema({
 			"type": "string",
 			"required": false
 		}
-});
+}, { collection : 'Products' });
 
 ProductSchema.statics.getUsers = function(){
 	return new Promise((resolve, reject) => {

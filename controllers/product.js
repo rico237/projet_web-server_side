@@ -32,14 +32,22 @@ exports.product_create = function (req, res) {
     })
 };
 
-exports.product_find_all = function () {
-    Product.find({}, function(err, docs){
-        if (!err){ 
-            console.log(docs);
-            // res.json({message: docs});
-            process.exit();
-        } else {throw err;}
-    })
+exports.product_find_all = function (req, res, next) {
+
+    Product.find({})
+            .limit(20)
+            .sort({'last_modified_by': -1})
+            .exec()
+            .then(docs => {
+                res.status(200).json({
+                    docs
+                })
+            })
+            .catch(err => {
+                next(err)
+            })
+
+    
 };
 
 exports.product_details = function (req, res, next) {

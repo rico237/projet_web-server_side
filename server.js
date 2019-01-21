@@ -28,7 +28,7 @@ app.use(function(req, res, next) {
 });
 
 // MongoDB
-const urlmongo = process.env.MONGODB_URI;
+const urlmongo = process.env.MONGODB_URI || "mongodb://localhost:27017/off";
 // Options recommandées par mLab pour une connexion à la base
 let options = { useMongoClient: true };
 // Connexion à la base mongodb
