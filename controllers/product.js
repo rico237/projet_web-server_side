@@ -35,13 +35,6 @@ exports.product_create = function (req, res, next) {
 
 exports.product_allergens_all = function(req, res, next) {
     res.status(200).json({allergens});
-    /*Product.find({}, {'allergens_from_ingredients': 1})
-        .exec()
-        .then(docs => {
-            res.status(200).json({docs})
-        }).catch(err=>{
-            next(err)
-        })*/
     /*Product.find()
             .distinct('allergens_from_ingredients')
             .then(allergens => {
@@ -52,8 +45,51 @@ exports.product_allergens_all = function(req, res, next) {
             })*/
 };
 
-exports.product_find_all = function (req, res, next) {
+exports.find_products_with_allergens = function(req, res, next) {
+    let array = req.body.tabs;
 
+    if (Array.isArray(array) && array != undefined) {
+        Product.find({ allergens_from_ingredients: { "$in" : array } }).lean().exec()
+        .then(products => res.status(200).json({products}))
+        .catch(err => next(err))
+    } else {
+        res.send('Data type not conform')
+    }
+};
+
+exports.find_ingredients_from_products_with_allergens = function(req, res, next) {
+    let array = req.body.tabs;
+
+    if (Array.isArray(array) && array != undefined) {
+        Product.find({ allergens_from_ingredients: { "$in" : array } }, "_id ingredients").lean().exec()
+        .then(products => res.status(200).json({products}))
+        .catch(err => next(err))
+    } else {
+        res.send('Data type not conform')
+    }
+};
+
+exports.product_additives = function(req, res, next) {
+    Product.findById(req.params.id, "additives_tags -_id").lean().exec()
+        .then(additives => res.status(200).json({additives}))
+        .catch(err => next(err))
+};
+
+exports.product_ingredients = function(req, res, next) {
+    Product.findById(req.params.id, "ingredients -_id").lean().exec()
+        .then(ingredients => res.status(200).json({ingredients}))
+        .catch(err => next(err))
+}
+
+exports.product_ingredients_description = function(req, res, next) {
+    Product.findById(req.params.id, "ingredients_text_with_allergens -_id").lean().exec()
+        .then(ingredients => res.status(200).json({ingredients}))
+        .catch(err => next(err))
+}
+
+
+
+exports.product_find_all = function (req, res, next) {
     Product.find({})
             .limit(10)
             .exec()
