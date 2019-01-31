@@ -1,22 +1,11 @@
-var Product = require('../models/product');
+var Product         = require('../models/product');
+var testProducts    = require('../json/test.json');
+var allergens       = require('../json/allergens.json');
 
-tab = ["Raclette","Poulet au curry","Boeuf bourguignon","Daube","Quenelles","Cake au jambon","Petits fours au fromage","Magret de canard","Saumon à la crème","Melon nature","Moules au vin blanc","Gratin de pommes de terre","Tarte au citron","Tarte au citron meringué","Tartiflette"];
-var allergens = require('../json/allergens.json');
-
-//Simple version, without validation or sanitation
-exports.test = function (req, res) {
-    res.json({ message: tab })
+// Test route
+exports.test = function (req, res, next) {
+    res.status(200).json({ testProducts });
 };
-
-exports.getUsers = function() {
-  Product.getUsers()
-  .then(docs => {
-    console.log(docs)
-  })
-  .catch(err => {
-    console.error(err)
-  })
-}
 
 exports.product_create = function (req, res, next) {
     var product = new Product(
@@ -50,8 +39,7 @@ exports.find_products_with_allergens = function(req, res, next) {
 
     if (Array.isArray(array) && array != undefined) {
         Product.find({ allergens_from_ingredients: { "$in" : array } })
-        .limit(50)
-        .lean().exec()
+        .limit(50).lean().exec()
         .then(products => res.status(200).json({products}))
         .catch(err => next(err))
     } else {
@@ -94,15 +82,9 @@ exports.product_ingredients_description = function(req, res, next) {
 
 
 exports.product_find_all = function (req, res, next) {
-    Product.find({})
-            .limit(10)
-            .exec()
-            .then(products => {
-                res.status(200).json({products})
-            })
-            .catch(err => {
-                next(err)
-            });
+    Product.find({}).limit(10).exec()
+            .then(products => res.status(200).json({ products }) )
+            .catch(err => next(err));
 };
 
 exports.product_details = function (req, res, next) {

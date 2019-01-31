@@ -1526,17 +1526,5 @@ var ProductSchema = new Schema({
 		}
 }, { collection : 'Products' });
 
-ProductSchema.statics.getUsers = function(){
-	return new Promise((resolve, reject) => {
-    this.find((err, docs) => {
-      if(err) {
-        console.error(err)
-        return reject(err)
-      }
-      resolve(docs)
-    })
-  })
-};
-
 // Export the model
 module.exports = mongoose.model('Product', ProductSchema);
