@@ -36,8 +36,6 @@ exports.product_allergens_all = function(req, res, next) {
 
 exports.find_products_with_allergens = function(req, res, next) {
     let array = req.body.tabs;
-
-    
         Product.find({ allergens_from_ingredients: { "$in" : array } })
         .limit(30).lean().exec()
         .then(products => res.status(200).json({products}))
@@ -47,9 +45,29 @@ exports.find_products_with_allergens = function(req, res, next) {
 
 exports.find_ingredients_from_products_with_allergens = function(req, res, next) {
     let array = req.body.tabs;
+    let query = req.body.productName;
+    let regex = array.join("|");
+    let prod; 
 
-        Product.find({ allergens_from_ingredients: { "$in" : array } }, "_id ingredients")
-        .limit(30)
+    if (typeof array !== 'undefined' && array.length > 0) {
+        // array defined and is not empty
+        prod = Product.find({ 
+            allergens_from_ingredients: {
+                "$regex": regex, 
+                "$options": "i"
+            }, 
+            product_name: { 
+                "$regex": query,
+                "$options": "i" 
+            } 
+        }, "_id product_name ingredients allergens_from_ingredients");
+    } else {
+        prod = Product.find({
+                product_name: { "$regex": query, "$options": "i" } 
+            }, "_id product_name ingredients allergens_from_ingredients")
+    }
+
+    prod.limit(30)
         .lean().exec()
         .then(products => res.status(200).json({products}))
         .catch(err => next(err))
