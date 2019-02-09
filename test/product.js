@@ -14,7 +14,7 @@ chai.use(chaiHttp);
 
 describe('Produit', () => {
     beforeEach((done) => {
-        Book.remove({}, (err) => {
+        Product.remove({}, (err) => {
             done();
         });
     });
