@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var dbCollection = process.env.MONGODB_COLLECTION || 'Products';
+var dbCollection = 'Products';
 
 var ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
@@ -1524,7 +1524,7 @@ var ProductSchema = new Schema({
 			"type": "string",
 			"required": false
 		}
-}, { collection : 'Products' });
+}, { collection : dbCollection });
 
 // Export the model
 module.exports = mongoose.model('Product', ProductSchema);
