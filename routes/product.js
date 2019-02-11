@@ -1,7 +1,7 @@
-var express = require('express');
-var router = express.Router();
+let express = require('express');
+let router = express.Router();
 
-var product_controller = require('../controllers/product');
+let product_controller = require('../controllers/product');
 
 /*
 	GET routes
@@ -26,6 +26,8 @@ router.get('/allergens/all', product_controller.product_allergens_all);
 /*
 	POST routes
 */
+
+router.post('/:id/images', product_controller.find_images_url_for_product);
 
 router.post('/create', product_controller.product_create);
 
