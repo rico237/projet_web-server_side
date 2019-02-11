@@ -2,6 +2,9 @@ var Product         = require('../models/product');
 var testProducts    = require('../json/test.json');
 var allergens       = require('../json/allergens.json');
 
+const unirest = require('unirest');
+const API_KEY = "574b3f73e57b94ae7bcf4b1de0f3b1ce";
+
 // Test route
 exports.test = function (req, res, next) {
     res.status(200).json({ testProducts });
@@ -33,6 +36,50 @@ exports.product_allergens_all = function(req, res, next) {
                 next(err)
             })*/
 };
+
+exports.find_images_url_for_product = function(req, res, next) {
+    let requestString = "https://www.food2fork.com/api/search?key="+ API_KEY +"&q=" + req.body.productName;
+    let limit = req.body.limit || 5;
+
+    unirest.get(requestString).end((re => {
+        if (re.status == 200) {
+            console.log(req.body.productName)
+            let result = JSON.parse(re.body);
+            
+            if (result.count != 0) {
+                let urls = [];
+                const recipes = result["recipes"];
+                for (var i = 0; i < recipes.length; i++) {
+                    if (i < limit) {
+                        let reci = recipes[i];
+                        let single = {"name":reci.title, "url":reci.image_url}
+
+                        console.log(reci)
+                        console.log(single)
+
+                        urls.push(single);
+                    } else {
+                        break;
+                    }
+                }
+                res.status(200).json(urls)
+            } else {
+                res.status(200).send("No results found");
+            }
+        } else {
+            console.log(result)
+            res.status(result.status);
+        }
+    }));
+
+}
+
+exports.update_product_image = function(req, res, next) {
+    Product.findByIdAndUpdate(req.params.id, { $set: {product_image_url : req.body.imageUrl }}, function (err, product) {
+        if (err) return next(err);
+        res.send('Product udpated.');
+    });
+}
 
 exports.find_products_with_allergens = function(req, res, next) {
     let array = req.body.tabs;
