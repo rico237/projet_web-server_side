@@ -5,6 +5,18 @@ var dbCollection = 'Products';
 var ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
 		"_id": "string",
+
+
+// ADDED PROPERTIES
+
+		"product_image_url": {
+			"type": "string",
+			"required": false
+		},
+		
+
+
+
 		"rev": {
 			"type": "number",
 			"required": false
