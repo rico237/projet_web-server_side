@@ -12,6 +12,7 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
+<<<<<<< HEAD
 describe('/GET products', () => {
     it('it should GET all the products', (done) => {
         chai.request(server)
@@ -55,5 +56,12 @@ describe('/GET a addictives of a product', () => {
                 res.body.should.be.a('object');
                 done();
             });
+=======
+describe('Produit', () => {
+    beforeEach((done) => {
+        Product.remove({}, (err) => {
+            done();
+        });
+>>>>>>> 40b179af1b5d51244e6154a8ebb97cb8f541d6ee
     });
 });
