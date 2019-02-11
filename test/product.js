@@ -12,10 +12,48 @@ let should = chai.should();
 
 chai.use(chaiHttp);
 
-describe('Produit', () => {
-    beforeEach((done) => {
-        Book.remove({}, (err) => {
-            done();
-        });
+describe('/GET products', () => {
+    it('it should GET all the products', (done) => {
+        chai.request(server)
+            .get('/products/all')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.products.length.should.be.eql(10);
+                done();
+            });
+    });
+});
+
+describe('/GET a product by ID', () => {
+    it('it should GET all the products', (done) => {
+        chai.request(server)
+            .get('/products/00000')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                res.body.should.have.property('languages_tags');
+                res.body.should.have.property('images');
+                res.body.should.have.property('ingredients_fr');
+                res.body.should.have.property('languages');
+                res.body.should.have.property('languages_codes');
+                res.body.should.have.property('codes_tags');
+                res.body.should.have.property('countries_tags');
+                res.body.should.have.property('additives');
+                done();
+            });
+    });
+});
+
+
+describe('/GET a addictives of a product', () => {
+    it('it should GET all the addictives of a product', (done) => {
+        chai.request(server)
+            .get('/products/00000/addictives')
+            .end((err, res) => {
+                res.should.have.status(200);
+                res.body.should.be.a('object');
+                done();
+            });
     });
 });
