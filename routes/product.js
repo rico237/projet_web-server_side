@@ -27,7 +27,7 @@ router.get('/allergens/all', product_controller.product_allergens_all);
 	POST routes
 */
 
-router.post('/:id/images', product_controller.find_images_url_for_product);
+router.post('/images', product_controller.find_images_url_for_product);
 
 router.post('/create', product_controller.product_create);
 
