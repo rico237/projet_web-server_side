@@ -62,7 +62,7 @@ exports.find_images_url_for_product = function(req, res, next) {
             }
             
             res.status(200).json(urls)
-            
+
         } else {
             res.status(result.status);
         }
@@ -87,7 +87,7 @@ exports.find_products_with_allergens = function(req, res, next) {
 };
 
 exports.find_ingredients_from_products_with_allergens = function(req, res, next) {
-    let array = req.body.tabs;
+    let array = req.body.tabs || [];
     let query = req.body.productName;
     let regex = array.join("|");
     let prod; 
@@ -95,19 +95,17 @@ exports.find_ingredients_from_products_with_allergens = function(req, res, next)
     if (typeof array !== 'undefined' && array.length > 0) {
         // array defined and is not empty
         prod = Product.find({ 
-            allergens_from_ingredients: {
-                "$regex": regex, 
-                "$options": "i"
-            }, 
-            product_name: { 
-                "$regex": query,
-                "$options": "i" 
-            } 
-        }, "_id product_name ingredients allergens_from_ingredients");
+            allergens_from_ingredients: { "$regex": regex, "$options": "i" }, 
+            // states : { "$not" : /^en:to-be-completed.*/ },
+            // states : { "$nin" : uncomp},
+            product_name: { "$regex": query, "$options": "i" } 
+        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states");
     } else {
         prod = Product.find({
-                product_name: { "$regex": query, "$options": "i" } 
-            }, "_id product_name ingredients allergens_from_ingredients")
+            product_name: { "$regex": query, "$options": "i" },
+            // states : { "$not" : /^en:to-be-completed.*/ },
+            // states : { "$nin" : uncomp},
+        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states")
     }
 
     prod.limit(30)

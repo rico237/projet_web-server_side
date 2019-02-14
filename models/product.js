@@ -7,7 +7,7 @@ var ProductSchema = new Schema({
 		"_id": "string",
 
 
-// ADDED PROPERTIES
+	// ADDED PROPERTIES
 
 		"product_image_url": {
 			"type": "string",
@@ -15,7 +15,7 @@ var ProductSchema = new Schema({
 		},
 		
 
-
+	// ADDED PROPERTIES
 
 		"rev": {
 			"type": "number",
@@ -1537,6 +1537,7 @@ var ProductSchema = new Schema({
 			"required": false
 		}
 }, { collection : dbCollection });
+
 
 // Export the model
 module.exports = mongoose.model('Product', ProductSchema);
