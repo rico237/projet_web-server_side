@@ -43,11 +43,9 @@ exports.find_images_url_for_product = function(req, res, next) {
     
     unirest.get(requestString).end((re => {
         if (re.status == 200) {
-            console.log(req.body.productName)
             let result = JSON.parse(re.body);
-            
+            let urls = [];
             if (result.count != 0) {
-                let urls = [];
                 const recipes = result["recipes"];
                 for (var i = 0; i < recipes.length; i++) {
                     if (i < limit) {
@@ -61,12 +59,11 @@ exports.find_images_url_for_product = function(req, res, next) {
                         break;
                     }
                 }
-                res.status(200).json(urls)
-            } else {
-                res.status(200).send("No results found");
             }
+            
+            res.status(200).json(urls)
+            
         } else {
-            // console.log(result)
             res.status(result.status);
         }
     }));
