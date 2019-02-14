@@ -40,7 +40,7 @@ exports.product_allergens_all = function(req, res, next) {
 exports.find_images_url_for_product = function(req, res, next) {
     let requestString = "https://www.food2fork.com/api/search?key="+ API_KEY +"&q=" + req.body.productName;
     let limit = req.body.limit || 5;
-
+    
     unirest.get(requestString).end((re => {
         if (re.status == 200) {
             console.log(req.body.productName)
@@ -52,11 +52,10 @@ exports.find_images_url_for_product = function(req, res, next) {
                 for (var i = 0; i < recipes.length; i++) {
                     if (i < limit) {
                         let reci = recipes[i];
-                        let single = {"name":reci.title, "url":reci.image_url}
-
-                        console.log(reci)
-                        console.log(single)
-
+                        let single = {
+                            "name":reci.title, 
+                            "url":reci.image_url
+                        }
                         urls.push(single);
                     } else {
                         break;
@@ -67,7 +66,7 @@ exports.find_images_url_for_product = function(req, res, next) {
                 res.status(200).send("No results found");
             }
         } else {
-            console.log(result)
+            // console.log(result)
             res.status(result.status);
         }
     }));
