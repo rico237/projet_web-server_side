@@ -2,6 +2,7 @@ let express = require('express');
 let router = express.Router();
 
 let product_controller = require('../controllers/product');
+let price_controller = require('../controllers/price');
 
 /*
 	GET routes
@@ -13,6 +14,8 @@ router.get('/test', product_controller.test);
 router.get('/all', product_controller.product_find_all);
 
 router.get('/:id', product_controller.product_details);
+
+router.get('/:id/price', price_controller.get_all_prices);
 
 router.get('/:id/additives', product_controller.product_additives);
 
@@ -27,7 +30,7 @@ router.get('/allergens/all', product_controller.product_allergens_all);
 	POST routes
 */
 
-router.post('/images', product_controller.find_images_url_for_product);	// Get better images for products
+router.post('/images', product_controller.find_images_url_for_product); // Get better images for products
 
 router.post('/create', product_controller.product_create);
 

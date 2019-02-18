@@ -29,7 +29,7 @@ describe('/GET a product by ID', () => {
         chai.request(server)
             .get('/products/00000')
             .end((err, res) => {
-                console.log(res);
+                //console.log(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.should.have.property('languages_tags');
@@ -88,7 +88,7 @@ describe('/POST name of product', () => {
             .post('/products/find_allergens/ingredients')
             .send(product)
             .end((err, res) => {
-                console.log(res);
+                //console.log(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.products.length.should.be.eql(30);
@@ -107,7 +107,7 @@ describe('/POST name of an non exist product', () => {
             .post('/products/find_allergens/ingredients')
             .send(product)
             .end((err, res) => {
-                console.log(res);
+                //console.log(res);
                 res.should.have.status(200);
                 res.body.should.be.a('object');
                 res.body.products.length.should.be.eql(0);
@@ -119,17 +119,40 @@ describe('/POST name of an non exist product', () => {
 describe('/POST search allergenes lait and yaourt', () => {
     it('it should return products with lait and yaourt ', (done) => {
         let product = {
-            tabs: ["lait", "yaourt"]
+            tabs: ["lait"]
         };
         chai.request(server)
             .post('/products/find_allergens')
             .send(product)
             .end((err, res) => {
-                console.log(res);
+                console.log('\n=======allergenes: ', res.body.products, '\n');
                 res.should.have.status(200);
                 res.body.should.be.a('object');
+                for (let product of res.body.products) {
+                    product.should.have.property('allergens_from_ingredients');
+                    product.allergens_from_ingredients.should.be.eql('lait');
+                }
                 res.body.products.length.should.be.eql(15);
                 done();
             });
+    });
+});
+
+describe('/PUT/:id product', () => {
+    it('it should UPDATE a product given the id', (done) => {
+        let book = new Product({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1948, pages: 778})
+
+        book.save((err, book) => {
+              chai.request(server)
+              .put('/products/' + product.id+'/update')
+              .send({title: "The Chronicles of Narnia", author: "C.S. Lewis", year: 1950, pages: 778})
+              .end((err, res) => {
+                    res.should.have.status(200);
+                    res.body.should.be.a('object');
+                    res.body.should.have.property('message').eql('Book updated!');
+                    res.body.book.should.have.property('year').eql(1950);
+                done();
+              });
+        });
     });
 });
