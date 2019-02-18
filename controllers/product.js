@@ -29,14 +29,14 @@ exports.product_create = function (req, res, next) {
 
 exports.product_allergens_all = function(req, res, next) {
     res.status(200).json({allergens});
-    /*Product.find()
-            .distinct('allergens_from_ingredients')
-            .then(allergens => {
-                res.status(200).json({allergens})
-            })
-            .catch(err => {
-                next(err)
-            })*/
+    // Product.find()
+    //         .distinct('allergens_tags')
+    //         .then(allergens => {
+    //             res.status(200).json({allergens})
+    //         })
+    //         .catch(err => {
+    //             next(err)
+    //         })
 };
 
 exports.find_images_url_for_product = function(req, res, next) {
@@ -100,13 +100,13 @@ exports.find_ingredients_from_products_with_allergens = function(req, res, next)
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
             product_name: { "$regex": query, "$options": "i" } 
-        }, "product_name allergens_from_ingredients nutrition_grade_fr states");
+        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states");
     } else {
         prod = Product.find({
             product_name: { "$regex": query, "$options": "i" },
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
-        }, "product_name allergens_from_ingredients nutrition_grade_fr states")
+        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states")
     }
 
     prod.limit(30)
