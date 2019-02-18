@@ -1,6 +1,6 @@
 let Product         = require('../models/product');
 let testProducts    = require('../json/test.json');
-let allergens       = require('../json/allergens.json');
+let allergens       = require('../json/allergens.json'); 
 
 let ObjectId = require('mongoose').Types.ObjectId;
 
