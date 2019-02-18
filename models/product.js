@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-var dbCollection = 'Products';
+var dbCollection = 'Final_products' || 'Products';
 
 var ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
