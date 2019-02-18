@@ -1,6 +1,9 @@
-var Price = require('../models/Price');
+let Price = require('../models/price');
+
 exports.get_all_prices = function(req, res, next) {
+
     console.log(req.params.id);
+    
     Price.find({
             id_product: req.params.id
         })

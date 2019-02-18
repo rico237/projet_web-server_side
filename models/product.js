@@ -1,10 +1,11 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var dbCollection = 'Final_products' || 'Products';
+let mongoose = require('mongoose');
+let Schema = mongoose.Schema,
+    ObjectId = Schema.ObjectId;
+let dbCollection = 'Final_products' || 'Products';
 
-var ProductSchema = new Schema({
+let ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
-		"_id": "string",
+		"_id": ObjectId,
 
 
 	// ADDED PROPERTIES

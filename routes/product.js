@@ -15,13 +15,14 @@ router.get('/all', product_controller.product_find_all);
 
 router.get('/:id', product_controller.product_details);
 
-router.get('/:id/price', price_controller.get_all_prices);
-
 router.get('/:id/additives', product_controller.product_additives);
 
 router.get('/:id/ingredients', product_controller.product_ingredients);
 
 router.get('/:id/ingredients/description', product_controller.product_ingredients_description);
+
+// Prices
+router.get('/:id/price', price_controller.get_all_prices);
 
 // Allergenes
 router.get('/allergens/all', product_controller.product_allergens_all);
