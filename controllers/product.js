@@ -100,13 +100,13 @@ exports.find_ingredients_from_products_with_allergens = function(req, res, next)
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
             product_name: { "$regex": query, "$options": "i" } 
-        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states");
+        }, "product_name allergens_from_ingredients nutrition_grade_fr states");
     } else {
         prod = Product.find({
             product_name: { "$regex": query, "$options": "i" },
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
-        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states")
+        }, "product_name allergens_from_ingredients nutrition_grade_fr states")
     }
 
     prod.limit(30)

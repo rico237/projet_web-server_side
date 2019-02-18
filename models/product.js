@@ -5,7 +5,7 @@ let dbCollection = 'Final_products' || 'Products';
 
 let ProductSchema = new Schema({
     // name: {type: String, required: true, max: 100},
-		"_id": ObjectId,
+		"_id": "string",
 
 
 	// ADDED PROPERTIES
