@@ -27,6 +27,12 @@ exports.product_create = function (req, res, next) {
     })
 };
 
+exports.store_update = function(req, res, next){
+    let id_product = req.params.id;
+    
+
+};
+
 exports.product_allergens_all = function(req, res, next) {
     res.status(200).json({allergens});
     // Product.find()

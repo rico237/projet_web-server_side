@@ -43,6 +43,8 @@ router.post('/find_allergens/ingredients', product_controller.find_ingredients_f
 	PUT routes
 */
 
+router.put('/:id/store/update', product_controller.store_update);
+
 router.put('/:id/update', product_controller.product_update);
 
 /*
