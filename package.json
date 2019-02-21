@@ -10,6 +10,8 @@
         "test": "mocha"
     },
     "dependencies": {
+        "bcrypt-nodejs": "0.0.3",
+        "bluebird": "^3.5.3",
         "body-parser": "^1.15.1",
         "config": "^1.20.1",
         "cookie-parser": "~1.4.3",
@@ -18,9 +20,12 @@
         "extract-mongo-schema": "^0.2.7",
         "hbs": "~4.0.1",
         "http-errors": "~1.6.2",
+        "jsonwebtoken": "^8.5.0",
         "mongodb": "^3.1.12",
         "mongoose": "^4.13.18",
-        "morgan": "~1.9.0",
+        "morgan": "^1.9.1",
+        "passport": "^0.4.0",
+        "passport-jwt": "^4.0.0",
         "unirest": "^0.5.1"
     },
     "devDependencies": {

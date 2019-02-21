@@ -1,17 +1,60 @@
 let Comment = require('../models/comment');
+let passport = require('passport');
+require('../config/passport')(passport);
+let jwt = require('jsonwebtoken');
+let User = require("../models/user");
 
 exports.create = function (req, res, next) {
-    let comm = new Comment(
-        {
-            name: req.body.countries
-        }
-    );
+    passport.authenticate('jwt', { session: false}), (req, res) => {
+        var token = getToken(req.headers);
+        if (token) {
+            console.log(req.body);
+            var newComment = new Comment({
+                content : req.body.content ,
+                author_id: req.body.author_id ,
+                recette_id : req.body.recette_id
+            });
 
-    comm.save(function (err) {
-        if (err) {
-            return next(err);
+            newComment.save(function(err) {
+                if (err) {
+                    return res.json({success: false, msg: 'Save comment failed.'});
+                }
+                res.json({success: true, msg: 'Successful created new comment.'});
+            });
+        } else {
+            return res.status(403).send({success: false, msg: 'Unauthorized.'});
         }
-        res.send('Comment Created successfully')
-    })
+    }
 };
 
+exports.get_all = function(req, res, next) {
+    Comment.find({}).exec()
+        .then(comments => res.status(200).json({ comments }))
+        .catch(err => next(err));
+};
+
+exports.get_single = function(req, res, next) {
+    passport.authenticate('jwt', { session: false}), function(req, res) {
+        var token = getToken(req.headers);
+        if (token) {
+            Comment.find({}).exec()
+                .then(comments => res.status(200).json({ comments }))
+                .catch(err => next(err));
+        } else {
+            return res.status(403).send({success: false, msg: 'Unauthorized.'});
+        }
+    }
+};
+
+getToken = function (headers) {
+    if (headers && headers.authorization) {
+        var parted = headers.authorization.split(' ');
+        if (parted.length === 2) {
+            return parted[1];
+        } else {
+            return null;
+        }
+    } else {
+        return null;
+    }
+};
