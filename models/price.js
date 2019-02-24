@@ -7,12 +7,12 @@ var PriceSchema = new Schema({
     "_id": ObjectId,
     "id_product": {
         "type": "string",
-        "required": true
+        "required": false
     },
     "id_store": "string",
     "prix": {
         "type": "string",
-        "required": true
+        "required": false
     },
     "adresse": "string",
     "lat": "string",
