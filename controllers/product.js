@@ -108,13 +108,14 @@ exports.find_ingredients_from_products_with_allergens = function(req, res, next)
         }, "_id product_name allergens_tags nutrition_grade_fr states")
     }
 
-    prod.limit(30)
-        .stream()
-        .on('data', product => {
-            product.replace(/^en:+/i, '');
-            allergens.push(product);
-        })
-        .on('end', () => res.status(200).json({allergens}))
+    prod.limit(30).lean().exec()
+        .then(products => res.status(200).json({products}))
+        // .stream()
+        // .on('data', product => {
+        //     product.replace(/^en:+/i, '');
+        //     allergens.push(product);
+        // })
+        // .on('end', () => res.status(200).json({allergens}))
         
 };
 
