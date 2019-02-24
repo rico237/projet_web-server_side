@@ -23,7 +23,7 @@ router.get('/:id/ingredients/description', product_controller.product_ingredient
 
 // Prices
 router.get('/:id/price', price_controller.get_all_prices);
-router.get('/price', price_controller.new_price);
+router.post('/price', price_controller.new_price);
 
 // Allergenes
 router.get('/allergens/all', product_controller.product_allergens_all);
