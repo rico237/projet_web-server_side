@@ -64,7 +64,7 @@ const api = require('./routes/api'); // General
 app.use("/api", api);
 
 const recipes = require('./routes/recette');
-app.use("recipes", recipes);
+app.use("/recipes", recipes);
 
 // Init passport lib
 app.use(passport.initialize());
