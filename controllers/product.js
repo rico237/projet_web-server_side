@@ -4,8 +4,7 @@ const Product         = require('../models/produitFinal');
 const testProducts    = require('../json/test.json');
 const allergens       = require('../json/allergens.json'); 
 const ObjectId        = require('mongoose').Types.ObjectId;
-
-const unirest = require('unirest');
+const unirest         = require('unirest');
 
 // Test route
 exports.test = function (req, res, next) {
