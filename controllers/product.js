@@ -1,11 +1,11 @@
 // const Product         = require('../models/product');
+require('dotenv').config();
 const Product         = require('../models/produitFinal');
 const testProducts    = require('../json/test.json');
 const allergens       = require('../json/allergens.json'); 
-const ObjectId = require('mongoose').Types.ObjectId;
+const ObjectId        = require('mongoose').Types.ObjectId;
 
 const unirest = require('unirest');
-const API_KEY = "574b3f73e57b94ae7bcf4b1de0f3b1ce";
 
 // Test route
 exports.test = function (req, res, next) {
@@ -40,7 +40,7 @@ exports.product_allergens_all = function(req, res, next) {
 };
 
 exports.find_images_url_for_product = function(req, res, next) {
-    let requestString = "https://www.food2fork.com/api/search?key="+ API_KEY +"&q=" + req.body.productName;
+    let requestString = "https://www.food2fork.com/api/search?key="+ process.env.FOOD_KEY +"&q=" + req.body.productName;
     let limit = req.body.limit || 5;
     
     unirest.get(requestString).end((re => {
