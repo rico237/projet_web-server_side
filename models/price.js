@@ -4,7 +4,6 @@ let ObjectId = Schema.ObjectId;
 var dbCollection = 'Prices';
 
 var PriceSchema = new Schema({
-    "_id": ObjectId,
     "id_product": {
         "type": "string",
         "required": false
