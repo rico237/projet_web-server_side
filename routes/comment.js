@@ -1,7 +1,14 @@
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const router = express.Router();
+const comment_controller = require('../controllers/comment');
 
-var comment_controller = require('../controllers/comment');
+/*
+
+	TEST
+
+ */
+
+router.post('/message', comment_controller.test_pusher);
 
 /*
 	GET

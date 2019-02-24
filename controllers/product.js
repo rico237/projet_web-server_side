@@ -1,8 +1,8 @@
-let Product         = require('../models/product');
-let testProducts    = require('../json/test.json');
-let allergens       = require('../json/allergens.json'); 
-
-let ObjectId = require('mongoose').Types.ObjectId;
+// const Product         = require('../models/product');
+const Product         = require('../models/produitFinal');
+const testProducts    = require('../json/test.json');
+const allergens       = require('../json/allergens.json'); 
+const ObjectId = require('mongoose').Types.ObjectId;
 
 const unirest = require('unirest');
 const API_KEY = "574b3f73e57b94ae7bcf4b1de0f3b1ce";
@@ -13,24 +13,18 @@ exports.test = function (req, res, next) {
 };
 
 exports.product_create = function (req, res, next) {
-    var product = new Product(
-        {
-            name: req.body.countries
-        }
-    );
+    var product = new Product({
+        product_name: req.body.product_name
+    });
 
     product.save(function (err) {
-        if (err) {
-            return next(err);
-        }
-        res.send('Product Created successfully')
-    })
+        if (err) return next(err);
+        res.status(200).send('Product Created successfully')
+    });
 };
 
 exports.store_update = function(req, res, next){
     let id_product = req.params.id;
-    
-
 };
 
 exports.product_allergens_all = function(req, res, next) {
@@ -87,7 +81,7 @@ exports.update_product_image = function(req, res, next) {
 
 exports.find_products_with_allergens = function(req, res, next) {
     let array = req.body.tabs;
-        Product.find({ allergens_from_ingredients: { "$in" : array } })
+        Product.find({ allergens_tags: { "$in" : array } })
         .limit(30).lean().exec()
         .then(products => res.status(200).json({products}))
         .catch(err => next(err))
@@ -95,46 +89,49 @@ exports.find_products_with_allergens = function(req, res, next) {
 
 exports.find_ingredients_from_products_with_allergens = function(req, res, next) {
     let array = req.body.tabs || [];
-    let query = req.body.productName;
-    let regex = array.join("|");
-    let prod; 
+    let query = req.body.productName, regex = array.join("|");
+    let prod; let allergens = [];
 
     if (typeof array !== 'undefined' && array.length > 0) {
         // array defined and is not empty
         prod = Product.find({ 
-            allergens_from_ingredients: { "$regex": regex, "$options": "i" }, 
+            allergens_tags: { "$regex": regex, "$options": "i" }, 
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
             product_name: { "$regex": query, "$options": "i" } 
-        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states");
+        }, "_id product_name allergens_tags nutrition_grade_fr states");
     } else {
         prod = Product.find({
             product_name: { "$regex": query, "$options": "i" },
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
-        }, "_id product_name allergens_from_ingredients nutrition_grade_fr states")
+        }, "_id product_name allergens_tags nutrition_grade_fr states")
     }
 
     prod.limit(30)
-        .lean().exec()
-        .then(products => res.status(200).json({products}))
-        .catch(err => next(err))
+        .stream()
+        .on('data', product => {
+            product.replace(/^en:+/i, '');
+            allergens.push(product);
+        })
+        .on('end', () => res.status(200).json({allergens}))
+        
 };
 
 exports.product_additives = function(req, res, next) {
-    Product.findById(req.params.id, "additives_tags -_id").lean().exec()
+    Product.findById(req.params.id, "allergens_tags -_id").lean().exec()
         .then(additives => res.status(200).json({additives}))
         .catch(err => next(err))
 };
 
 exports.product_ingredients = function(req, res, next) {
-    Product.findById(req.params.id, "ingredients -_id").lean().exec()
+    Product.findById(req.params.id, "ingredients_text -_id").lean().exec()
         .then(ingredients => res.status(200).json({ingredients}))
         .catch(err => next(err))
 }
 
 exports.product_ingredients_description = function(req, res, next) {
-    Product.findById(req.params.id, "ingredients_text_with_allergens -_id").lean().exec()
+    Product.findById(req.params.id, "ingredients_text -_id").lean().exec()
         .then(ingredients => res.status(200).json({ingredients}))
         .catch(err => next(err))
 }
