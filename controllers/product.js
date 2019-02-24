@@ -1,6 +1,6 @@
 // const Product         = require('../models/product');
 require('dotenv').config();
-const Product         = require('../models/produitFinal');
+const Product         = require('../models/produit');
 const testProducts    = require('../json/test.json');
 const allergens       = require('../json/allergens.json'); 
 const ObjectId        = require('mongoose').Types.ObjectId;
