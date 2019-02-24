@@ -1,11 +1,10 @@
 // const Product         = require('../models/product');
+require('dotenv').config();
 const Product         = require('../models/produit');
 const testProducts    = require('../json/test.json');
 const allergens       = require('../json/allergens.json'); 
-const ObjectId = require('mongoose').Types.ObjectId;
-
-const unirest = require('unirest');
-const API_KEY = "574b3f73e57b94ae7bcf4b1de0f3b1ce";
+const ObjectId        = require('mongoose').Types.ObjectId;
+const unirest         = require('unirest');
 
 // Test route
 exports.test = function (req, res, next) {
@@ -40,7 +39,7 @@ exports.product_allergens_all = function(req, res, next) {
 };
 
 exports.find_images_url_for_product = function(req, res, next) {
-    let requestString = "https://www.food2fork.com/api/search?key="+ API_KEY +"&q=" + req.body.productName;
+    let requestString = "https://www.food2fork.com/api/search?key="+ process.env.FOOD_KEY +"&q=" + req.body.productName;
     let limit = req.body.limit || 5;
     
     unirest.get(requestString).end((re => {
@@ -100,13 +99,13 @@ exports.find_ingredients_from_products_with_allergens = function(req, res, next)
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
             product_name: { "$regex": query, "$options": "i" } 
-        }, "_id product_name allergens_tags nutrition_grade_fr states");
+        });
     } else {
         prod = Product.find({
             product_name: { "$regex": query, "$options": "i" },
             // states : { "$not" : /^en:to-be-completed.*/ },
             // states : { "$nin" : uncomp},
-        }, "_id product_name allergens_tags nutrition_grade_fr states")
+        })
     }
 
     prod.limit(30).lean().exec()

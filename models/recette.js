@@ -7,9 +7,10 @@ let RecetteSchema = new mongoose.Schema({
     slug: {type: String, lowercase: true, unique: true},
     title: String,
     body: String,
+    image_url: String,
     tagList:[{type: String}],
-    author: {type: ObjectId, ref:'User'},
-    comments: [{type: ObjectId, ref:'Comment'}]
+    // author: {type: ObjectId, ref:'User'},
+    // comments: [{type: ObjectId, ref:'Comment'}]
 }, { collection : dbCollection, timestamp : true });
 
 // Export the model

@@ -1,5 +1,5 @@
 # Environnment variables
-.env
+*.env
 # Logs
 logs
 *.log
@@ -89,4 +89,3 @@ npm-debug.log
 .DS_Storenpm-debug.log
 node_modules
 package-lock.json
-models/ProduitFinal.js
