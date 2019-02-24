@@ -4,15 +4,10 @@ let ObjectId = Schema.ObjectId;
 var dbCollection = 'Prices';
 
 var PriceSchema = new Schema({
-    "id_product": {
-        "type": "string",
-        "required": false
-    },
+    "id_product": "string",
     "id_store": "string",
-    "prix": {
-        "type": "string",
-        "required": false
-    },
+    "prix": "string",
+    "name_store": "string",
     "adresse": "string",
     "lat": "string",
     "long": "string",
