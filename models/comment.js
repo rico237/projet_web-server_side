@@ -7,11 +7,6 @@ const CommentSchema = new Schema({
 		type: String,
 		required : true
 	},
-	author_id: {
-		type:  	ObjectId, 
-		ref:	'User',
-		required: true
-	},
 	recette_id : {
 		type: 	ObjectId,
 		ref:	'Recette',

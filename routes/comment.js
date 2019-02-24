@@ -14,8 +14,7 @@ router.post('/message', comment_controller.test_pusher);
 	GET
 */
 
-router.get('/all', comment_controller.get_all);
-router.get('/:id', comment_controller.get_single);
+router.get('/all/:id', comment_controller.get_all);
 
 /*
 	POST
