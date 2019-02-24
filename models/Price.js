@@ -4,13 +4,18 @@ let ObjectId = Schema.ObjectId;
 var dbCollection = 'Prices';
 
 var PriceSchema = new Schema({
-    "_id": ObjectId,
-    "id_product":  "string",
+    "id_product": {
+        "type": "string",
+        "required": false
+    },
     "id_store": "string",
-    "prix": "string",
+    "prix": {
+        "type": "string",
+        "required": false
+    },
     "adresse": "string",
     "lat": "string",
-    "long": "string"
+    "long": "string",
 }, { collection: dbCollection });
 
 // Export the model
