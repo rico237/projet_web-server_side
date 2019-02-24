@@ -1,17 +1,26 @@
+// Ajout de varibles d'environnement local
+// Evite d'ajouter les clés directememnt dans le code
+require('dotenv').config()						
+
 /*
  * Import des librairies
 */
-let express 	= require('express'); 			// Librairie Server
-let mongoose 	= require('mongoose'); 			// Gestion de mongodb
-let logger 		= require('morgan'); 			// ???
-let createError = require('http-errors'); 		// Gestion des erreurs
-let path 		= require('path'); 				// ???
-let morgan 		= require('morgan');			// ???
-let bodyParser 	= require('body-parser');		// ???
+const express 	= require('express'); 			// Server Middleware
+const mongoose 	= require('mongoose'); 			// Gestion de mongodb
+const createError = require('http-errors'); 	// Gestion des erreurs
+const bodyParser 	= require('body-parser');	// Parse incoming request bodies
+const morgan 		= require('morgan');
+const passport 	= require('passport');			// User auth lib (gestion de tokens)
 
-let app 		= express();					// Init du serveur web
-let config 		= require('config'); 			// Load config file
-let port 		= process.env.PORT ||  8080;	// Definition du port selon les variables de l'environnement heroku
+const app 		= express();					// Init du serveur web
+const port 		= process.env.PORT;				// Definition du port selon les variables de l'environnement heroku
+
+const Pusher = require('pusher');				// Add realtime processing (used for comments)
+const pusher = new Pusher({
+	appId: 	process.env.PUSHER_APPID ,
+	key: 	process.env.PUSHER_KEY ,
+	secret: process.env.PUSHER_SECRET , cluster: 'eu'
+});
 
 // Configuration Server                                       
 app.use(bodyParser.json());
@@ -28,25 +37,36 @@ app.use(function(req, res, next) {
 });
 
 // MongoDB
-const urlmongo = process.env.MONGODB_URI || "mongodb://localhost:27017/off";
+const urlmongo = process.env.MONGODB_URI;
 // Options recommandées par mLab pour une connexion à la base
-let options = { useMongoClient: true };
+const options = { 
+	useMongoClient: true,
+};
 // Connexion à la base mongodb
 mongoose.connect(urlmongo, options); 
-mongoose.Promise = global.Promise;		
+mongoose.Promise = global.Promise;	
 
-var db = mongoose.connection; 
+const db = mongoose.connection; 
 db.on('error', console.error.bind(console, 'Erreur lors de la connexion')); 
 db.once('open', () => {
     console.log("Connexion à la base établie avec succès"); 
 });
 
 // Routes
-let product = require('./routes/product'); 	// products
-app.use("/products", product);				// products
+const product = require('./routes/product'); 	// products
+app.use("/products", product);					// products
+
+const comment = require('./routes/comment');	// Comments
+app.use("/comments", comment);
+
+const api = require('./routes/api');			// General
+app.use("/api", api);
+
+// Init passport lib
+app.use(passport.initialize());
 
 app.listen(port, () => {
-	console.log("Listening on port " + port);
+	console.log("/*--- Listening on *:" + port+ " ---*/");
 });
 
 module.exports = app;

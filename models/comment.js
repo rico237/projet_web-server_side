@@ -1,10 +1,23 @@
-var mongoose = require('mongoose');
-var Schema = mongoose.Schema;
-var dbCollection = 'Comments';
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema, ObjectId = Schema.ObjectId;
+const dbCollection = 'Comments';
 
-var CommentSchema = new Schema({
-	
-}, { collection : dbCollection });
+const CommentSchema = new Schema({
+	content : {
+		type: String,
+		required : true
+	},
+	author_id: {
+		type:  	ObjectId, 
+		ref:	'User',
+		required: true
+	},
+	recette_id : {
+		type: 	ObjectId,
+		ref:	'Recette',
+		required : true
+	}
+}, { collection : dbCollection, timestamp : true });
 
 // Export the model
 module.exports = mongoose.model('Comment', CommentSchema);
