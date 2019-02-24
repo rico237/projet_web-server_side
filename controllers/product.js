@@ -89,7 +89,8 @@ exports.find_products_with_allergens = function(req, res, next) {
 
 exports.find_ingredients_from_products_with_allergens = function(req, res, next) {
     let array = req.body.tabs || [];
-    let query = req.body.productName, regex = array.join("|");
+    let query = req.body.productName || ""; 
+    let regex = array.join("|");
     let prod; let allergens = [];
 
     if (typeof array !== 'undefined' && array.length > 0) {
