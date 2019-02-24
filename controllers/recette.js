@@ -15,6 +15,13 @@ exports.recipe_create = function (req, res, next) {
     });
 };
 
+exports.recipe_detail = (req, res, next) => {
+    Recipe.findById( req.params.id , function (err, product) {
+        if (err) return next(err);
+        res.send(product);
+    })
+};
+
 exports.all_recipes = function (req, res, next) {
     Recipe.find({}).limit(35).exec()
             .then(recipes => res.status(200).json({ recipes }) )

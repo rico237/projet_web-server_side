@@ -7,6 +7,7 @@ let recipes_controller = require('../controllers/recette');
 */
 
 router.get('/all', recipes_controller.all_recipes);
+router.get('/:id', recipes_controller.recipe_detail);
 
 /*
 	POST routes
