@@ -9,9 +9,9 @@ exports.recipe_create = function (req, res, next) {
         tagList: req.body.tags,
     });
 
-    recipe.save(function (err) {
+    recipe.save(function (err, recipe) {
         if (err) return next(err);
-        res.status(200).send('Recipe Created successfully')
+        res.status(200).json({recipe})
     });
 };
 
