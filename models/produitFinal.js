@@ -386,5 +386,6 @@ const ProduitFinalSchema = new Schema({
   }
 }, { collection: dbCollection });
 
+
 // Export the model
 module.exports = mongoose.model('ProduitFinal', ProduitFinalSchema);
