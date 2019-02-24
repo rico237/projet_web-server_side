@@ -1,6 +1,6 @@
 // Ajout de varibles d'environnement local
 // Evite d'ajouter les clés directememnt dans le code
-//require('dotenv').config();					
+require('dotenv').config();					
 
 /*
  * Import des librairies
