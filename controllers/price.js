@@ -16,6 +16,7 @@ exports.get_all_prices = function(req, res, next) {
 };
 
 exports.new_price = function(req, res) {
+    console.log(req.body);
     var newPrice = new Price(req.body);
     //Save it into the DB.
     newPrice.save((err, price) => {

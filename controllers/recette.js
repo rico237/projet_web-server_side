@@ -9,10 +9,17 @@ exports.recipe_create = function (req, res, next) {
         tagList: req.body.tags,
     });
 
-    recipe.save(function (err) {
+    recipe.save(function (err, recipe) {
         if (err) return next(err);
-        res.status(200).send('Recipe Created successfully')
+        res.status(200).json({recipe})
     });
+};
+
+exports.recipe_detail = (req, res, next) => {
+    Recipe.findById( req.params.id , function (err, product) {
+        if (err) return next(err);
+        res.send(product);
+    })
 };
 
 exports.all_recipes = function (req, res, next) {

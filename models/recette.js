@@ -4,7 +4,6 @@ const ObjectId = Schema.ObjectId;
 const dbCollection = 'Recipes';
 
 let RecetteSchema = new mongoose.Schema({
-    slug: {type: String, lowercase: true, unique: true},
     title: String,
     body: String,
     image_url: String,
